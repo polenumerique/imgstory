@@ -35,16 +35,24 @@
     </div>
 
     <script>
-        async function getRandomImages() {
-            try {
-                const response = await fetch('/random-images');
-                const images = await response.json();
-                document.getElementById('img1').src = `/images/${images[0]}`;
-                document.getElementById('img2').src = `/images/${images[1]}`;
-                document.getElementById('img3').src = `/images/${images[2]}`;
-            } catch (error) {
-                console.error('Erreur lors de la récupération des images aléatoires:', error);
+        function getRandomImages() {
+            const imageFolder = 'images/';
+            const images = [
+                'image1.jpg', 'image2.jpg', 'image3.jpg', 'image4.jpg', 'image5.jpg', // ajoutez tous vos noms de fichiers ici
+            ];
+
+            const randomImages = [];
+            while (randomImages.length < 3) {
+                const randomIndex = Math.floor(Math.random() * images.length);
+                const selectedImage = images[randomIndex];
+                if (!randomImages.includes(selectedImage)) {
+                    randomImages.push(selectedImage);
+                }
             }
+
+            document.getElementById('img1').src = imageFolder + randomImages[0];
+            document.getElementById('img2').src = imageFolder + randomImages[1];
+            document.getElementById('img3').src = imageFolder + randomImages[2];
         }
 
         getRandomImages();
