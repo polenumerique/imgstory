@@ -14,7 +14,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
+            background-color: #cef0f0;
         }
         .titre {
             text-align: center;
@@ -23,8 +23,8 @@
         .image-container {
             display: flex;
             gap: 20px;
-            justify-content: center; /* Centrer les images horizontalement */
-            overflow: hidden; /* pour cacher les images qui sortent du cadre */
+            justify-content: center;
+            overflow: hidden;
         }
         .image-container img {
             width: 300px;
@@ -32,18 +32,17 @@
             object-fit: cover;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            opacity: 0; /* commence par être invisible */
-            margin-top: 100px; /* décalage initial pour l'effet de glissement */
+            opacity: 0;
         }
 
         /* définition de l'animation de glissement */
         @keyframes slide-in {
             0% {
-                transform: translateY(100%); /* commence en bas */
+                transform: translateY(100%);
                 opacity: 0;
             }
             100% {
-                transform: translateY(0); /* se déplace vers le haut */
+                transform: translateY(0);
                 opacity: 1;
             }
         }
@@ -51,7 +50,7 @@
 </head>
 <body>
     <div class="titre">
-        <h1>Voici vos 3 illustrations, racontez une histoire en vous basant sur ces 3 images.</h1>
+        <h1>Imaginez une histoire en vous basant sur les 3 images ci-dessous.</h1>
     </div>
     <div class="image-container">
         <img id="img1" src="" alt="Image 1">
@@ -59,25 +58,39 @@
         <img id="img3" src="" alt="Image 3">
     </div>
 
+    <audio id="imageSound">
+        <source src="distribue.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
         function getRandomImages() {
             const imageFolder = 'images/';
             const images = [
-                'archer.jpg', 'bateau.jpg', 'brebis.jpg', 'chambre.jpg', 'chat.jpg', 'cheval.jpg', 'chevalier.jpg', 'chien.jpg', 'dague.jpg', 'femme.jpg', 'fermier.jpg', 'garcon.jpg', 'homme.jpg', 'lettre.jpg','maison.jpg', 'muscles.jpg', 'pigeon.jpg', 'plage.jpg', 'policier.jpg', 'pompier.jpg', 'rouge_gorge.jpg', 'tour.jpg','vaisseau.jpg', 'vautour.jpg', 'voiture.jpg',    // ajoutez tous vos noms de fichiers ici
+                'archer.jpg', 'bateau.jpg', 'brebis.jpg', 'chambre.jpg', 'chat.jpg', 'cheval.jpg', 'chevalier.jpg', 'chien.jpg', 'dague.jpg', 'femme.jpg', 'fermier.jpg', 'garcon.jpg', 'homme.jpg', 'lettre.jpg','maison.jpg', 'muscles.jpg', 'pigeon.jpg', 'plage.jpg', 'policier.jpg', 'pompier.jpg', 'rouge_gorge.jpg', 'tour.jpg','vaisseau.jpg', 'vautour.jpg', 'voiture.jpg'
             ];
+            
+            let indicesUtilises = [];
 
-            // Fonction pour animer une image spécifique
+                function getRandomIndex() {
+                    let index;
+                    do {
+                        index = Math.floor(Math.random() * images.length);
+                    } while (indicesUtilises.includes(index));
+                    indicesUtilises.push(index);
+                    return index;
+                }
+                
             function animateImage(imgElement, src, delay) {
                 setTimeout(() => {
                     imgElement.src = src;
                     imgElement.style.animation = 'slide-in 1s ease-out forwards';
+                    document.getElementById('imageSound').play();
                 }, delay);
             }
 
-            // Démarrer les animations pour chaque image, une après l'autre
-            animateImage(document.getElementById('img1'), imageFolder + images[0], 0);
-            animateImage(document.getElementById('img2'), imageFolder + images[1], 1000); // Délai de 1 seconde après la première image
-            animateImage(document.getElementById('img3'), imageFolder + images[2], 2000); // Délai de 2 secondes après la deuxième image
+            animateImage(document.getElementById('img1'), imageFolder + images[getRandomIndex()], 0);
+            animateImage(document.getElementById('img2'), imageFolder + images[getRandomIndex()], 500);
+            animateImage(document.getElementById('img3'), imageFolder + images[getRandomIndex()], 800);
         }
 
         getRandomImages();
