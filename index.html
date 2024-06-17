@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Images Aléatoires</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .image-container {
+            display: flex;
+            gap: 20px;
+        }
+        .image-container img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="image-container">
+        <img id="img1" src="" alt="Image 1">
+        <img id="img2" src="" alt="Image 2">
+        <img id="img3" src="" alt="Image 3">
+    </div>
+
+    <script>
+        async function getRandomImages() {
+            try {
+                const response = await fetch('/random-images');
+                const images = await response.json();
+                document.getElementById('img1').src = `/images/${images[0]}`;
+                document.getElementById('img2').src = `/images/${images[1]}`;
+                document.getElementById('img3').src = `/images/${images[2]}`;
+            } catch (error) {
+                console.error('Erreur lors de la récupération des images aléatoires:', error);
+            }
+        }
+
+        getRandomImages();
+    </script>
+</body>
+</html>
