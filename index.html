@@ -23,6 +23,8 @@
         .image-container {
             display: flex;
             gap: 20px;
+            justify-content: center; /* Centrer les images horizontalement */
+            overflow: hidden; /* pour cacher les images qui sortent du cadre */
         }
         .image-container img {
             width: 300px;
@@ -30,6 +32,20 @@
             object-fit: cover;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            opacity: 0; /* commence par être invisible */
+            margin-top: 100px; /* décalage initial pour l'effet de glissement */
+        }
+
+        /* définition de l'animation de glissement */
+        @keyframes slide-in {
+            0% {
+                transform: translateY(100%); /* commence en bas */
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0); /* se déplace vers le haut */
+                opacity: 1;
+            }
         }
     </style>
 </head>
@@ -47,21 +63,21 @@
         function getRandomImages() {
             const imageFolder = 'images/';
             const images = [
-                'image1.jpg', 'image2.jpg', 'image3.jpg', 'image4.jpg', 'image5.jpg', // ajoutez tous vos noms de fichiers ici
+                'archer.jpg', 'bateau.jpg', 'brebis.jpg', 'chambre.jpg', 'chat.jpg', 'cheval.jpg', 'chevalier.jpg', 'chien.jpg', 'dague.jpg', 'femme.jpg', 'fermier.jpg', 'garcon.jpg', 'homme.jpg', 'lettre.jpg','maison.jpg', 'muscles.jpg', 'pigeon.jpg', 'plage.jpg', 'policier.jpg', 'pompier.jpg', 'rouge_gorge.jpg', 'tour.jpg','vaisseau.jpg', 'vautour.jpg', 'voiture.jpg',    // ajoutez tous vos noms de fichiers ici
             ];
 
-            const randomImages = [];
-            while (randomImages.length < 3) {
-                const randomIndex = Math.floor(Math.random() * images.length);
-                const selectedImage = images[randomIndex];
-                if (!randomImages.includes(selectedImage)) {
-                    randomImages.push(selectedImage);
-                }
+            // Fonction pour animer une image spécifique
+            function animateImage(imgElement, src, delay) {
+                setTimeout(() => {
+                    imgElement.src = src;
+                    imgElement.style.animation = 'slide-in 1s ease-out forwards';
+                }, delay);
             }
 
-            document.getElementById('img1').src = imageFolder + randomImages[0];
-            document.getElementById('img2').src = imageFolder + randomImages[1];
-            document.getElementById('img3').src = imageFolder + randomImages[2];
+            // Démarrer les animations pour chaque image, une après l'autre
+            animateImage(document.getElementById('img1'), imageFolder + images[0], 0);
+            animateImage(document.getElementById('img2'), imageFolder + images[1], 1000); // Délai de 1 seconde après la première image
+            animateImage(document.getElementById('img3'), imageFolder + images[2], 2000); // Délai de 2 secondes après la deuxième image
         }
 
         getRandomImages();
