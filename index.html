@@ -4,15 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Images Aléatoires</title>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Barlow', sans-serif;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
             background-color: #f0f0f0;
+        }
+        .titre {
+            text-align: center;
+            margin-bottom: 20px;
         }
         .image-container {
             display: flex;
@@ -28,7 +34,9 @@
     </style>
 </head>
 <body>
-<h1>Voici vos 3 illustrations, racontez une histoire en vous basant sur ces 3 images.</h1>
+    <div class="titre">
+        <h1>Voici vos 3 illustrations, racontez une histoire en vous basant sur ces 3 images.</h1>
+    </div>
     <div class="image-container">
         <img id="img1" src="" alt="Image 1">
         <img id="img2" src="" alt="Image 2">
